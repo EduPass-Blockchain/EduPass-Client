@@ -16,7 +16,11 @@
       </h3>
 
       <div class="flex">
-        <Button>Get started</Button>
+        <Button as-child>
+          <NuxtLink to="/connect">
+            Get started
+          </NuxtLink>
+        </Button>
       </div>
     </div>
   </div>

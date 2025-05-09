@@ -17,6 +17,7 @@
     "@tailwindcss/vite": "^4.1.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "ethers": "^6.14.0",
     "lucide-vue-next": "^0.503.0",
     "nuxt": "^3.17.1",
     "pinia": "^3.0.2",
