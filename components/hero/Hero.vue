@@ -17,7 +17,7 @@
 
       <div class="flex">
         <Button as-child>
-          <NuxtLink to="/connect">
+          <NuxtLink to="/(auth)/connect">
             Get started
           </NuxtLink>
         </Button>
