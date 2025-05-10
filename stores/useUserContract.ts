@@ -1,7 +1,7 @@
 import type { User } from '~/types/user.type'
 import { ethers } from 'ethers'
 import config from '~/config.json'
-import userContract from '~/contracts/UserContract.json'
+import userContract from '~/contracts/UserManagerContract.json'
 import { Gender } from '~/types/user.type'
 
 export const useUserContract = defineStore('userContract', {
@@ -51,7 +51,7 @@ export const useUserContract = defineStore('userContract', {
       }
 
       try {
-        const userData = await this.contract.getMyUserData()
+        const userData = await this.contract.getCurrentUserData()
         console.log(userData)
 
         const fullName = userData[0]

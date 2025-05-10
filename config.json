@@ -7,11 +7,11 @@
     "chainId": 1337
   },
   "contracts": {
-    "user": {
-      "address": "0x753F9dDb5813Cea797a71cC5e7c626235df4Ba1D"
-    },
     "roleManager": {
-      "address": "0xc4C6163bB6A132cA69228a16F1e5D2615Bb9d921"
+      "address": "0x90a4e7EC3da4Cf0e36941909F035Ba54e648E483"
+    },
+    "user": {
+      "address": "0xb063bd2D7F95Df341dF9D5173563e23225D88b56"
     }
   }
 }
