@@ -5,10 +5,12 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { ref } from 'vue'
 import * as z from 'zod'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
 
 const formSchema = toTypedSchema(z.object({
   fullName: z.string(),
-  dateOfBirth: z.string().date(),
+  dateOfBirth: z.number(),
+  gender: z.number().gte(0).lte(1),
 }))
 
 const form = useForm({
@@ -19,11 +21,21 @@ const { handleSubmit, isSubmitting, setFieldValue } = form
 
 const dateOfBirth = ref<DateValue>()
 function setDateOfBirthField(value?: DateValue) {
-  setFieldValue('dateOfBirth', value?.toString())
+  setFieldValue('dateOfBirth', value?.toDate('UTC').getTime())
 }
 
-const onSubmit = handleSubmit((fields) => {
-  navigateTo('/dashboard')
+const onSubmit = handleSubmit(async (fields) => {
+  console.log(fields)
+
+  try {
+    const userContract = useUserContract()
+    await userContract.register(fields.fullName, fields.dateOfBirth, fields.gender)
+
+    navigateTo('/dashboard')
+  }
+  catch (error) {
+    console.error(error)
+  }
 })
 
 const todayDate = today(getLocalTimeZone())
@@ -53,7 +65,32 @@ const todayDate = today(getLocalTimeZone())
       </FormItem>
     </FormField>
 
-    <Button class="w-full">
+    <FormField v-slot="{ componentField }" name="gender">
+      <FormItem>
+        <FormLabel>Gender</FormLabel>
+
+        <Select v-bind="componentField">
+          <FormControl>
+            <SelectTrigger class="w-full">
+              <SelectValue placeholder="Select a verified email to display" />
+            </SelectTrigger>
+          </FormControl>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem :value="0">
+                Male
+              </SelectItem>
+              <SelectItem :value="1">
+                Female
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+
+    <Button class="w-full" :disabled="isSubmitting">
       Register
     </Button>
   </form>

@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useWalletInfo } from '~/composables/useWalletInfo'
+import { useWalletInfo } from '~/stores/useWalletInfo'
 
 const hasEthereum = ref(false)
 const walletInfo = useWalletInfo()
+const userContract = useUserContract()
 const isFinishedChecking = ref(false)
 
 onMounted(async () => {
@@ -12,7 +13,16 @@ onMounted(async () => {
     try {
       await walletInfo.connect()
     }
-    catch {}
+    catch (e) {
+      console.error(e)
+    }
+
+    try {
+      await userContract.getUserData()
+    }
+    catch (e) {
+      navigateTo('/register')
+    }
   }
 
   isFinishedChecking.value = true
