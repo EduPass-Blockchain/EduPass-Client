@@ -36,11 +36,13 @@ export const useUserContract = defineStore('userContract', {
         throw new Error('Contract not initialized')
       }
 
-      await this.contract.createUser(
+      console.log(await this.contract.createUser(
         fullName,
         dateOfBirth,
         gender,
-      )
+      ))
+
+      console.log('User registered')
     },
 
     async getUserData() {
