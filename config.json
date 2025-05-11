@@ -9,13 +9,13 @@
   },
   "contracts": {
     "roleManager": {
-      "address": "0x21E5481B7359886b230EBbbCee18B300Fd940d5D"
+      "address": "0x8954a28025A502537c14E61472CfC8B61e7a20B5"
     },
     "user": {
-      "address": "0xE59D6BEC6bbd96d7F887F524bF5a3D9c2678080c"
+      "address": "0x9E408d78d5757017A9f392161eF4dE5c39E38AE3"
     },
     "certificate": {
-      "address": "0x9bEa161BFd8F8EfbC06c8A84B4A58Cb34AA879a3"
+      "address": "0x374B9F79b127e333D1AcD4983939D7869E1E693E"
     }
   }
 }

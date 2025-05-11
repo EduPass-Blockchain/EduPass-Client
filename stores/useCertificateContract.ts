@@ -46,5 +46,30 @@ export const useCertificateContract = defineStore('certificateContract', {
 
       return certiCids
     },
+
+    async publicCertificate(tokenUri: string) {
+      if (!this.contract) {
+        throw new Error('Contract not initialized')
+      }
+
+      console.log('herre')
+
+      const tx = await this.contract.setCertificatePublic(tokenUri)
+      console.log('herre')
+      await tx.wait()
+
+      console.log('Certificate public:', tx)
+    },
+
+    async privateCertificate(tokenUri: string) {
+      if (!this.contract) {
+        throw new Error('Contract not initialized')
+      }
+
+      const tx = await this.contract.setCertificatePrivate(tokenUri)
+      await tx.wait()
+
+      console.log('Certificate private:', tx)
+    },
   },
 })

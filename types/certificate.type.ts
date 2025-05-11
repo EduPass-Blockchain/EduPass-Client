@@ -1,4 +1,5 @@
 export interface Certificate {
+  cid: string
   issuedBy: string
   name: string
   courseName?: string

@@ -16,7 +16,7 @@ const issueDate = new Date(Number(certificate.issuedAt)).toLocaleDateString()
 
 <template>
   <Dialog>
-    <DialogTrigger class="cursor-pointer">
+    <DialogTrigger class="cursor-pointer" as-child>
       <slot />
     </DialogTrigger>
     <DialogContent>

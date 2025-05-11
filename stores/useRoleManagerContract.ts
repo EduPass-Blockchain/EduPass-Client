@@ -34,8 +34,9 @@ export const useRoleManagerContract = defineStore('roleManagerContract', {
         throw new Error('Contract not initialized')
       }
 
-      const role = Number(await this.contract.getRole())
-      console.log(role)
+      const walletInfo = useWalletInfo()
+
+      const role = Number(await this.contract.getRole(walletInfo.address))
       this.role = role === 0 ? 'admin' : role === 1 ? 'org' : 'student'
       return this.role
     },

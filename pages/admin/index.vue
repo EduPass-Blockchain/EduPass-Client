@@ -44,7 +44,7 @@ const onSubmit = form.handleSubmit(async (values) => {
       <form class="space-y-4" @submit="onSubmit">
         <FormField v-slot="{ componentField }" name="walletAddress">
           <FormItem>
-            <FormLabel>Wallet address</FormLabel>
+            <FormLabel>User address</FormLabel>
             <FormControl>
               <Input type="text" v-bind="componentField" placeholder="Ex: 0x78bd..." />
             </FormControl>
