@@ -2,6 +2,7 @@ import type { WalletInfo } from '~/types/wallet-info'
 import { ethers } from 'ethers'
 import { defineStore } from 'pinia'
 import config from '~/config.json'
+import { useRoleManagerContract } from '~/stores/useRoleManagerContract'
 
 export class EthereumWalletExtensionNotFoundError extends Error {}
 
@@ -31,7 +32,11 @@ export const useWalletInfo = defineStore('walletInfo', {
       this.connected = true
 
       const userContract = useUserContract()
+      const certificateContract = useCertificateContract()
+      const roleManagerContract = useRoleManagerContract()
+      await certificateContract.initContract()
       await userContract.initContract()
+      await roleManagerContract.initContract()
     },
 
     async addEthereumChain() {

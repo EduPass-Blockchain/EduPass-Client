@@ -1,17 +1,21 @@
 {
+  "backend-host": "http://localhost:8000",
+  "ipfs-domain": "https://cyan-deliberate-barracuda-356.mypinata.cloud",
   "chain": {
     "rpcUrls": [
       "http://localhost:8545"
     ],
-    "chainIdHex": "0x539",
-    "chainId": 1337
+    "chainIdHex": "0x539"
   },
   "contracts": {
-    "user": {
-      "address": "0x753F9dDb5813Cea797a71cC5e7c626235df4Ba1D"
-    },
     "roleManager": {
-      "address": "0xc4C6163bB6A132cA69228a16F1e5D2615Bb9d921"
+      "address": "0x21E5481B7359886b230EBbbCee18B300Fd940d5D"
+    },
+    "user": {
+      "address": "0xE59D6BEC6bbd96d7F887F524bF5a3D9c2678080c"
+    },
+    "certificate": {
+      "address": "0x9bEa161BFd8F8EfbC06c8A84B4A58Cb34AA879a3"
     }
   }
 }

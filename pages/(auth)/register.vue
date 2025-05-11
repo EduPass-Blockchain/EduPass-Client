@@ -1,6 +1,6 @@
 <template>
   <div class="p-4 mt-8 space-y-8">
-    <h1 class="text-center text-primary text-3xl font-light">
+    <h1 class="text-center text-primary text-3xl font-semibold">
       EduPass
     </h1>
 

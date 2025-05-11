@@ -2,18 +2,21 @@
 import { useUserContract } from '~/stores/useUserContract'
 
 const userContract = useUserContract()
+const walletInfo = useWalletInfo()
 </script>
 
 <template>
-  <div class="grid grid-cols-[1fr_auto] py-4">
+  <div class="grid grid-cols-[1fr_auto] py-4 items-center">
     <div>
-      <div class="font-light text-primary">
+      <NuxtLink class="text-primary font-semibold text-xl" to="/">
         EduPass
-      </div>
+      </NuxtLink>
     </div>
 
     <div>
-      User: {{ userContract.user?.fullName }}
+      <NuxtLink :to="`/profile/${walletInfo.address}`">
+        {{ userContract.user?.fullName }}
+      </NuxtLink>
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 import type { User } from '~/types/user.type'
 import { ethers } from 'ethers'
 import config from '~/config.json'
-import userContract from '~/contracts/UserContract.json'
+import userContract from '~/contracts/UserManagerContract.json'
 import { Gender } from '~/types/user.type'
 
 export const useUserContract = defineStore('userContract', {
@@ -20,13 +20,11 @@ export const useUserContract = defineStore('userContract', {
 
       const contractAddr = config.contracts.user.address
 
-      const contract = new ethers.Contract(
+      this.contract = new ethers.Contract(
         contractAddr,
         userContract.abi,
         toRaw(walletInfo.signer),
       )
-
-      this.contract = contract
 
       console.log('Initialized user contract')
     },
@@ -36,11 +34,12 @@ export const useUserContract = defineStore('userContract', {
         throw new Error('Contract not initialized')
       }
 
-      console.log(await this.contract.createUser(
+      const tx = await this.contract.createUser(
         fullName,
         dateOfBirth,
         gender,
-      ))
+      )
+      await tx.wait()
 
       console.log('User registered')
     },
@@ -51,8 +50,7 @@ export const useUserContract = defineStore('userContract', {
       }
 
       try {
-        const userData = await this.contract.getMyUserData()
-        console.log(userData)
+        const userData = await this.contract.getCurrentUserData()
 
         const fullName = userData[0]
         const dateOfBirth = new Date(Number(userData[1])).toLocaleDateString()
@@ -63,8 +61,6 @@ export const useUserContract = defineStore('userContract', {
           dateOfBirth,
           gender,
         }
-
-        console.log(this.user)
       }
       catch (err: any) {
         console.log(err)
@@ -72,12 +68,28 @@ export const useUserContract = defineStore('userContract', {
       }
     },
 
-    getOtherUserData(userAddr: string) {
+    async getOtherUserData(userAddr: string) {
       if (!this.contract) {
         throw new Error('Contract not initialized')
       }
 
-      return this.contract.getOtherUserData(userAddr)
+      const user = await this.contract.getOtherUserData(userAddr)
+
+      return {
+        fullName: user[0],
+        dateOfBirth: new Date(Number(user[1])).toLocaleDateString(),
+        gender: user.gender ? Gender.FEMALE : Gender.MALE,
+      }
+    },
+
+    async listAllNftsOfUser(userAddr: string) {
+      if (!this.contract) {
+        throw new Error('Contract not initialized')
+      }
+
+      const nfts = await this.contract.listAllNftsOfUser(userAddr)
+
+      console.log(nfts)
     },
   },
 })

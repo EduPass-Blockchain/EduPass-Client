@@ -17,6 +17,8 @@ const form = useForm({
   validationSchema: formSchema,
 })
 
+const ready = ref(true)
+
 const { handleSubmit, isSubmitting, setFieldValue } = form
 
 const dateOfBirth = ref<DateValue>()
@@ -25,15 +27,17 @@ function setDateOfBirthField(value?: DateValue) {
 }
 
 const onSubmit = handleSubmit(async (fields) => {
-  console.log(fields)
+  ready.value = false
 
   try {
     const userContract = useUserContract()
     await userContract.register(fields.fullName, fields.dateOfBirth, fields.gender)
 
-    navigateTo('/dashboard')
+    navigateTo('/connect')
+    ready.value = true
   }
   catch (error) {
+    ready.value = true
     console.error(error)
   }
 })
@@ -80,6 +84,7 @@ const todayDate = today(getLocalTimeZone())
               <SelectItem :value="0">
                 Male
               </SelectItem>
+
               <SelectItem :value="1">
                 Female
               </SelectItem>
@@ -90,7 +95,7 @@ const todayDate = today(getLocalTimeZone())
       </FormItem>
     </FormField>
 
-    <Button class="w-full" :disabled="isSubmitting">
+    <Button class="w-full" :disabled="!ready">
       Register
     </Button>
   </form>
